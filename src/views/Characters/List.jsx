@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
-import CharacterCard from "../../components/Character/Card";
 
 export default function CharacterList() {
   const [characters, setCharacters] = useState([]);
@@ -17,17 +15,18 @@ export default function CharacterList() {
   }
 
   useEffect(() => {
-    async function getCharacters() {
-      const res = await fetch('httpsfuturamaapi.herokuapp.com/api/v2/characters?perPage=10');
+    const getCharacters = async () => {
+      const res = await fetch('https://futuramaapi.herokuapp.com/api/v2/characters?perPage=10');
       const data = await res.json();
-      const characterData = data.results;
-      const character = characterData.map((character) => ({
+      console.log(data)
+      const characterData = data.map((character) => ({
         img: character.PicUrl,
         name: character.Name,
         species: character.Species
       }));
 
-      setCharacters(character);
+      setCharacters(characterData);
+      
     }
     getCharacters();
     setLoading(false);
@@ -44,17 +43,20 @@ export default function CharacterList() {
       <h3>Characters of Futurama</h3>
 
       <form onSubmit={handleSubmit}>
-          <input type='text' placeholder='Search for a character by name' value={search} onChange={e => setSearch(e.target.value)}></input>
+        <label>
+          Name:
+          <input type='text' placeholder='Search for a character' value={search} onChange={e => setSearch(e.target.value)}></input>
           <button>Search</button>
+        </label>
       </form>
 
       {
         search 
           ? results.map((character, i) => {
             return (
-              <div class='all-characters'>
-                <div class='characters'>
-                  <img src={character.PicUrl} alt='Pic of Character' />
+              <div className='all-characters' key={character.name}>
+                <div className='characters' >
+                  <img src={character.img} alt='Pic of Character' />
                   <h2>{character.name}</h2>
                   <p>{character.species}</p>
                 </div>
@@ -63,9 +65,9 @@ export default function CharacterList() {
           })
           : characters.map((character, i) => {
             return (
-              <div class='all-characters'>
-                <div class='characters'>
-                  <img src={character.PicUrl} alt='Pic of Character' />
+              <div className='all-characters' key={character.name}>
+                <div className='characters' >
+                  <img src={character.img} alt='Pic of Character' />
                   <h2>{character.name}</h2>
                   <p>{character.species}</p>
                 </div>
