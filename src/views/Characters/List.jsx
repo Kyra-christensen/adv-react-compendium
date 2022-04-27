@@ -8,5 +8,12 @@ export default function CharacterList() {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (search) {
+      const filteredCharacters = characters.filter(characters => characters.name.includes(search));
+      setResults(filteredCharacters);
+    }
+  }
   
 }
