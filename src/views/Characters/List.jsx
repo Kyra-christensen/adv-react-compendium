@@ -38,5 +38,41 @@ export default function CharacterList() {
       <div>Loading...</div>
     </>
   );
-  
+
+  return (
+    <>
+      <h3>Characters of Futurama</h3>
+
+      <form onSubmit={handleSubmit}>
+          <input type='text' placeholder='Search for a character by name' value={search} onChange={e => setSearch(e.target.value)}></input>
+          <button>Search</button>
+      </form>
+
+      {
+        search 
+          ? results.map((character, i) => {
+            return (
+              <div class='all-characters'>
+                <div class='characters'>
+                  <img src={character.PicUrl} alt='Pic of Character' />
+                  <h2>{character.name}</h2>
+                  <p>{character.species}</p>
+                </div>
+              </div>
+            )
+          })
+          : characters.map((character, i) => {
+            return (
+              <div class='all-characters'>
+                <div class='characters'>
+                  <img src={character.PicUrl} alt='Pic of Character' />
+                  <h2>{character.name}</h2>
+                  <p>{character.species}</p>
+                </div>
+              </div>
+            )
+          })
+      }
+    </>
+  )
 }
