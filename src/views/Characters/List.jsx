@@ -15,5 +15,23 @@ export default function CharacterList() {
       setResults(filteredCharacters);
     }
   }
+
+  useEffect(() => {
+    async function getCharacters() {
+      const res = await fetch('httpsfuturamaapi.herokuapp.com/api/v2/characters?perPage=10');
+      const data = await res.json();
+      const characterData = data.results;
+      const character = characterData.map((character) => ({
+        img: character.PicUrl,
+        name: character.Name,
+        species: character.Species
+      }));
+
+      setCharacters(character);
+    }
+    getCharacters();
+    setLoading(false);
+  }, []);
+
   
 }
