@@ -33,5 +33,10 @@ export default function CharacterList() {
     setLoading(false);
   }, []);
 
+  if (loading) return (
+    <>
+      <div>Loading...</div>
+    </>
+  );
   
 }
