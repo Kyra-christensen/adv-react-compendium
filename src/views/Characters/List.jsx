@@ -53,28 +53,28 @@ export default function CharacterList() {
           {
             search 
               ? results.map((character, i) => {
-                return (
-                  <div className='all-characters' key={character.name}>
-                    <div className='characters' >
-                      <img src={character.img} alt='Pic of Character' />
-                      <h2>{character.name}</h2>
-                      <p>{character.species}</p>
+                  return (
+                    <div className='all-characters' key={character.name}>
+                      <div className='characters' >
+                        <img src={character.img} alt='Pic of Character' />
+                        <h2>{character.name}</h2>
+                        <p>{character.species}</p>
+                      </div>
                     </div>
-                  </div>
-                )
-              })
+                  )
+                })
               : characters.map((character, i) => {
-                return (
-                  <div className='all-characters' key={character.name}>
-                    <div className='characters' >
-                      <img src={character.img} alt='Pic of Character' />
-                      <h2>{character.name}</h2>
-                      <p>{character.species}</p>
+                  return (
+                    <div className='all-characters' key={character.name}>
+                      <div className='characters' >
+                        <img src={character.img} alt='Pic of Character' />
+                        <h2>{character.name}</h2>
+                        <p>{character.species}</p>
+                      </div>
                     </div>
-                  </div>
-                )
-              })
-          }
+                  )
+                })
+            }
         </>
       )
 }
