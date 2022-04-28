@@ -18,7 +18,6 @@ export default function CharacterList() {
     const getCharacters = async () => {
       const res = await fetch('https://futuramaapi.herokuapp.com/api/v2/characters?perPage=10');
       const data = await res.json();
-      console.log(data)
       const characterData = data.map((character) => ({
         img: character.PicUrl,
         name: character.Name,
@@ -26,55 +25,56 @@ export default function CharacterList() {
       }));
 
       setCharacters(characterData);
-      
+      setLoading(false);
     }
     getCharacters();
-    setLoading(false);
+    
   }, []);
 
-  if (loading) return (
-    <>
-      <div>Loading...</div>
-    </>
-  );
+  return loading
+    ? (
+        <>
+          <div>Loading...</div>
+        </>
+    )
 
-  return (
-    <>
-      <h3>Characters of Futurama</h3>
+    : (
+        <>
+          <h3>Characters of Futurama</h3>
 
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input type='text' placeholder='Search for a character' value={search} onChange={e => setSearch(e.target.value)}></input>
-          <button>Search</button>
-        </label>
-      </form>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Name:
+              <input type='text' placeholder='Search for a character' value={search} onChange={e => setSearch(e.target.value)}></input>
+              <button>Search</button>
+            </label>
+          </form>
 
-      {
-        search 
-          ? results.map((character, i) => {
-            return (
-              <div className='all-characters' key={character.name}>
-                <div className='characters' >
-                  <img src={character.img} alt='Pic of Character' />
-                  <h2>{character.name}</h2>
-                  <p>{character.species}</p>
-                </div>
-              </div>
-            )
-          })
-          : characters.map((character, i) => {
-            return (
-              <div className='all-characters' key={character.name}>
-                <div className='characters' >
-                  <img src={character.img} alt='Pic of Character' />
-                  <h2>{character.name}</h2>
-                  <p>{character.species}</p>
-                </div>
-              </div>
-            )
-          })
-      }
-    </>
-  )
+          {
+            search 
+              ? results.map((character, i) => {
+                  return (
+                    <div className='all-characters' key={character.name}>
+                      <div className='characters' >
+                        <img src={character.img} alt='Pic of Character' />
+                        <h2>{character.name}</h2>
+                        <p>{character.species}</p>
+                      </div>
+                    </div>
+                  )
+                })
+              : characters.map((character, i) => {
+                  return (
+                    <div className='all-characters' key={character.name}>
+                      <div className='characters' >
+                        <img src={character.img} alt='Pic of Character' />
+                        <h2>{character.name}</h2>
+                        <p>{character.species}</p>
+                      </div>
+                    </div>
+                  )
+                })
+            }
+        </>
+      )
 }
